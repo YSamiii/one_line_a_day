@@ -4,11 +4,15 @@ const $$ = s => [...document.querySelectorAll(s)];
 const STORAGE_KEY = 'oneLineDay.entries.v2';
 const LEGACY_KEY = 'oneLineDay.entries.v1';
 const SETTINGS_KEY = 'oneLineDay.settings.v1';
+const PRESETS_KEY = 'oneLineDay.blockPresets.v1';
 
-let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{"language":"system","theme":"system"}');
+let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{"language":"system","theme":"system","palette":"dopamine"}');
+if(!settings.palette) settings.palette='dopamine';
 let currentMonth = new Date();
 let currentYear = new Date().getFullYear();
 let selectedDate = null;
+let pendingBlockContainer = null;
+let blockPresets = JSON.parse(localStorage.getItem(PRESETS_KEY) || 'null') || ['今天的工作','家庭','特别的一天'];
 
 function migrateEntries(){
   const current = localStorage.getItem(STORAGE_KEY);
@@ -32,20 +36,20 @@ const i18n={
     myDay:'我的一天',saveToday:'保存今天',save:'保存',myPlaceholder:'用一句话记住今天。',
     onThisDay:'往年今日',reviewDesc:'这里会显示去年、前年同一天留下的一句话。',search:'搜索',
     searchPlaceholder:'搜索关键词或标题',editDay:'编辑这一天',settings:'设置',language:'语言',
-    appearance:'外观',exportBackup:'导出完整备份',importBackup:'导入完整备份',
+    appearance:'外观',colorTheme:'配色主题',exportBackup:'导出完整备份',importBackup:'导入完整备份',
     localOnly:'当前版本数据保存在本机浏览器中。',noEntry:'还没有记录。',saved:'已保存',
     daysRecorded:'已记录 {n} 天',addBlock:'新增记录区块',newBlock:'新记录',
-    blockPlaceholder:'用一句话记录这个部分。'
+    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加'
   },
   en:{
     appTitle:'One Line a Day',today:'Today',calendar:'Calendar',year:'Year',review:'Review',
     myDay:'My Day',saveToday:'Save Today',save:'Save',myPlaceholder:'Remember today in one sentence.',
     onThisDay:'On This Day',reviewDesc:'See what you wrote on this date in previous years.',search:'Search',
     searchPlaceholder:'Search words or titles',editDay:'Edit This Day',settings:'Settings',language:'Language',
-    appearance:'Appearance',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
+    appearance:'Appearance',colorTheme:'Color Theme',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
     localOnly:'This version stores data in this browser.',noEntry:'No entry yet.',saved:'Saved',
     daysRecorded:'{n} days recorded',addBlock:'Add another block',newBlock:'New block',
-    blockPlaceholder:'Remember this part of the day in one sentence.'
+    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add'
   }
 };
 
@@ -60,12 +64,16 @@ function t(k,vars={}){
 }
 function applySettings(){
   document.documentElement.dataset.theme=settings.theme;
+  document.documentElement.dataset.palette=settings.palette || 'dopamine';
   document.documentElement.lang=lang()==='zh'?'zh-CN':'en';
   $('#languageSelect').value=settings.language;
   $('#themeSelect').value=settings.theme;
+  const paletteSelect = $('#paletteSelect');
+  if(paletteSelect) paletteSelect.value=settings.palette || 'dopamine';
   $$('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
   $$('[data-i18n-placeholder]').forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));
   $('#appTitle').textContent=t('appTitle');
+  renderPresetSettings();
   renderAll();
 }
 function dateKey(d){
@@ -113,13 +121,38 @@ function renderBlocks(container,blocks){
   container.innerHTML=blocks.map((b,i)=>blockHTML(b,i)).join('');
   wireBlocks(container);
 }
-function addBlock(container){
-  const block={id:uid(),title:t('newBlock'),text:''};
+function addBlockWithTitle(container,title){
+  const block={id:uid(),title:title||t('newBlock'),text:''};
   container.insertAdjacentHTML('beforeend',blockHTML(block,container.children.length));
   wireBlocks(container);
   const last=container.lastElementChild;
-  last.querySelector('.block-title-input').select();
   last.scrollIntoView({behavior:'smooth',block:'center'});
+  last.querySelector('textarea')?.focus();
+}
+function renderBlockPicker(){
+  const list=$('#blockPresetList');
+  list.innerHTML=blockPresets.length
+    ? blockPresets.map(title=>`<button class="preset-choice" data-title="${escapeAttr(title)}"><span>${escapeHtml(title)}</span><span class="preset-arrow">›</span></button>`).join('')
+    : `<div class="empty">${t('noEntry')}</div>`;
+  list.querySelectorAll('.preset-choice').forEach(btn=>btn.onclick=()=>{
+    addBlockWithTitle(pendingBlockContainer,btn.dataset.title);
+    $('#blockPickerDialog').close();
+  });
+}
+function openBlockPicker(container){
+  pendingBlockContainer=container;
+  renderBlockPicker();
+  $('#blockPickerDialog').showModal();
+}
+function renderPresetSettings(){
+  const box=$('#presetSettingsList');
+  if(!box) return;
+  box.innerHTML=blockPresets.map((title,i)=>`<span class="preset-pill">${escapeHtml(title)}<button data-index="${i}" aria-label="delete">×</button></span>`).join('');
+  box.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
+    blockPresets.splice(Number(btn.dataset.index),1);
+    localStorage.setItem(PRESETS_KEY,JSON.stringify(blockPresets));
+    renderPresetSettings();
+  });
 }
 function collectBlocks(container){
   const blocks=[...container.querySelectorAll('.dynamic-block')].map((el,i)=>({
@@ -139,7 +172,7 @@ function renderToday(){
   const n=Object.values(entries).filter(e=>e.blocks?.some(b=>b.text)).length;
   $('#streakText').textContent=t('daysRecorded',{n});
 }
-$('#addBlockBtn').onclick=()=>addBlock($('#blocksContainer'));
+$('#addBlockBtn').onclick=()=>openBlockPicker($('#blocksContainer'));
 $('#saveBtn').onclick=()=>{
   const k=dateKey(new Date()),blocks=collectBlocks($('#blocksContainer'));
   if(blocks.some(b=>b.text)) entries[k]={blocks,updatedAt:Date.now()}; else delete entries[k];
@@ -177,7 +210,7 @@ function openEntryDialog(k){
   renderBlocks($('#dialogBlocksContainer'),getEntry(k).blocks);
   $('#entryDialog').showModal();
 }
-$('#dialogAddBlockBtn').onclick=()=>addBlock($('#dialogBlocksContainer'));
+$('#dialogAddBlockBtn').onclick=()=>openBlockPicker($('#dialogBlocksContainer'));
 $('#closeDialog').onclick=()=>$('#entryDialog').close();
 $('#dialogSave').onclick=()=>{
   const blocks=collectBlocks($('#dialogBlocksContainer'));
@@ -242,13 +275,36 @@ $$('.bottom-nav button').forEach(b=>b.onclick=()=>{
   if(b.dataset.view==='yearView')renderYear();
   if(b.dataset.view==='reviewView')renderReview();
 });
-$('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();
+
+$('#closeBlockPicker').onclick=()=>$('#blockPickerDialog').close();
+$('#customBlockBtn').onclick=()=>{
+  const title=prompt(t('customBlock'));
+  if(title && title.trim()){
+    addBlockWithTitle(pendingBlockContainer,title.trim());
+    $('#blockPickerDialog').close();
+  }
+};
+$('#addPresetBtn').onclick=()=>{
+  const input=$('#newPresetInput');
+  const title=input.value.trim();
+  if(!title) return;
+  if(!blockPresets.includes(title)) blockPresets.push(title);
+  localStorage.setItem(PRESETS_KEY,JSON.stringify(blockPresets));
+  input.value='';
+  renderPresetSettings();
+};
+$('#newPresetInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){e.preventDefault();$('#addPresetBtn').click();}
+});
+
+$('#settingsBtn').onclick=()=>{renderPresetSettings();$('#settingsDialog').showModal();};
 $('#closeSettings').onclick=()=>$('#settingsDialog').close();
 $('#languageSelect').onchange=e=>{settings.language=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 $('#themeSelect').onchange=e=>{settings.theme=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
+$('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 
 $('#exportBtn').onclick=()=>{
-  const payload={app:'One Line a Day',version:2,exportedAt:new Date().toISOString(),settings,entries};
+  const payload={app:'One Line a Day',version:6,exportedAt:new Date().toISOString(),settings,blockPresets,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);
@@ -258,6 +314,7 @@ $('#importInput').onchange=async e=>{
   try{
     const data=JSON.parse(await f.text());
     if(data.entries){entries=data.entries;saveEntries();}
+    if(Array.isArray(data.blockPresets)){blockPresets=data.blockPresets;localStorage.setItem(PRESETS_KEY,JSON.stringify(blockPresets));}
     if(data.settings){settings={...settings,...data.settings};localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));}
     applySettings();$('#settingsDialog').close();alert(t('saved'));
   }catch{alert('Invalid backup file');}

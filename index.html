@@ -115,6 +115,20 @@
     </div>
   </dialog>
 
+  <dialog id="blockPickerDialog">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow" data-i18n="chooseBlock">选择记录区块</div>
+          <h2 data-i18n="addBlock">新增记录区块</h2>
+        </div>
+        <button class="icon-btn" id="closeBlockPicker">×</button>
+      </div>
+      <div id="blockPresetList" class="preset-picker-list"></div>
+      <button class="secondary-btn" id="customBlockBtn" data-i18n="customBlock">自定义标题</button>
+    </div>
+  </dialog>
+
   <dialog id="settingsDialog">
     <div class="dialog-inner">
       <div class="dialog-head">
@@ -137,6 +151,29 @@
           <option value="dark">深色 / Dark</option>
         </select>
       </label>
+      <label class="setting-row">
+        <span data-i18n="colorTheme">配色主题</span>
+        <select id="paletteSelect">
+          <option value="minimal">极简黑白 / Minimal</option>
+          <option value="macaron">马卡龙 / Macaron</option>
+          <option value="dopamine">多巴胺 / Dopamine</option>
+          <option value="cream">奶油手账 / Cream Journal</option>
+          <option value="morandi">莫兰迪 / Morandi</option>
+        </select>
+      </label>
+      <div class="settings-section">
+        <div class="settings-section-head">
+          <div>
+            <div class="eyebrow" data-i18n="blockPresets">常用区块标题</div>
+            <p class="muted tiny" data-i18n="blockPresetsDesc">新增记录时直接选择，不用每天重新输入标题。</p>
+          </div>
+        </div>
+        <div id="presetSettingsList" class="preset-settings-list"></div>
+        <div class="preset-add-row">
+          <input id="newPresetInput" maxlength="30" data-i18n-placeholder="presetPlaceholder" placeholder="例如：熹熹的一天">
+          <button class="mini-btn" id="addPresetBtn" data-i18n="add">添加</button>
+        </div>
+      </div>
       <hr>
       <button class="secondary-btn" id="exportBtn" data-i18n="exportBackup">导出完整备份</button>
       <label class="secondary-btn file-btn">
