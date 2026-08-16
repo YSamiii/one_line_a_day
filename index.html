@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#F6D86B" />
+  <title>One Line a Day</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow" id="todayLabel"></div>
+        <h1 id="appTitle">One Line a Day</h1>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙︎</button>
+    </header>
+
+    <main>
+      <section id="todayView" class="view active">
+        <div class="hero card">
+          <div class="date-block">
+            <div class="big-date" id="bigDate"></div>
+            <div class="sub-date" id="subDate"></div>
+          </div>
+          <div class="streak" id="streakText"></div>
+        </div>
+
+        <section class="entry-card card mine">
+          <div class="section-title-row">
+            <div>
+              <span class="dot mine-dot"></span>
+              <h2 data-i18n="myDay">我的一天</h2>
+            </div>
+            <span class="count" id="mineCount">0/120</span>
+          </div>
+          <textarea id="mineText" maxlength="120" data-i18n-placeholder="myPlaceholder" placeholder="用一句话记住今天。"></textarea>
+          <div class="tags" id="mineTags"></div>
+        </section>
+
+        <section class="entry-card card xixi">
+          <div class="section-title-row">
+            <div>
+              <span class="dot xixi-dot"></span>
+              <h2 data-i18n="xixiDay">熹熹的一天</h2>
+            </div>
+            <span class="count" id="xixiCount">0/120</span>
+          </div>
+          <textarea id="xixiText" maxlength="120" data-i18n-placeholder="xixiPlaceholder" placeholder="今天熹熹有什么值得记住的？"></textarea>
+          <div class="tags" id="xixiTags"></div>
+        </section>
+
+        <button class="primary-btn" id="saveBtn" data-i18n="saveToday">保存今天</button>
+        <div id="saveHint" class="save-hint"></div>
+      </section>
+
+      <section id="calendarView" class="view">
+        <div class="calendar-head">
+          <button class="icon-btn" id="prevMonth">‹</button>
+          <button class="month-title" id="monthTitle"></button>
+          <button class="icon-btn" id="nextMonth">›</button>
+        </div>
+        <div class="weekday-row" id="weekdayRow"></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="legend">
+          <span><i class="legend-dot mine-dot"></i><span data-i18n="myDay">我的一天</span></span>
+          <span><i class="legend-dot xixi-dot"></i><span data-i18n="xixiDay">熹熹的一天</span></span>
+        </div>
+      </section>
+
+      <section id="yearView" class="view">
+        <div class="year-head">
+          <button class="icon-btn" id="prevYear">‹</button>
+          <h2 id="yearTitle"></h2>
+          <button class="icon-btn" id="nextYear">›</button>
+        </div>
+        <div class="segmented">
+          <button data-year-filter="both" class="active" data-i18n="both">一起</button>
+          <button data-year-filter="mine" data-i18n="myDay">我的一天</button>
+          <button data-year-filter="xixi" data-i18n="xixiDay">熹熹的一天</button>
+        </div>
+        <div id="yearMonths" class="year-months"></div>
+      </section>
+
+      <section id="reviewView" class="view">
+        <div class="review-card card">
+          <h2 data-i18n="onThisDay">往年今日</h2>
+          <p class="muted" data-i18n="reviewDesc">这里会显示去年、前年同一天留下的一句话。</p>
+          <div id="reviewList"></div>
+        </div>
+
+        <div class="card search-card">
+          <h2 data-i18n="search">搜索</h2>
+          <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索关键词或标签" />
+          <div class="segmented small">
+            <button data-search-filter="both" class="active" data-i18n="both">一起</button>
+            <button data-search-filter="mine" data-i18n="mineShort">我</button>
+            <button data-search-filter="xixi" data-i18n="xixiShort">熹熹</button>
+          </div>
+          <div id="searchResults"></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button data-view="todayView" class="active"><span>●</span><small data-i18n="today">今天</small></button>
+      <button data-view="calendarView"><span>▦</span><small data-i18n="calendar">日历</small></button>
+      <button data-view="yearView"><span>▥</span><small data-i18n="year">全年</small></button>
+      <button data-view="reviewView"><span>⌕</span><small data-i18n="review">回顾</small></button>
+    </nav>
+  </div>
+
+  <dialog id="entryDialog">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow" id="dialogDate"></div>
+          <h2 data-i18n="editDay">编辑这一天</h2>
+        </div>
+        <button class="icon-btn" id="closeDialog">×</button>
+      </div>
+      <label><span data-i18n="myDay">我的一天</span><textarea id="dialogMine" maxlength="120"></textarea></label>
+      <label><span data-i18n="xixiDay">熹熹的一天</span><textarea id="dialogXixi" maxlength="120"></textarea></label>
+      <button class="primary-btn" id="dialogSave" data-i18n="save">保存</button>
+    </div>
+  </dialog>
+
+  <dialog id="settingsDialog">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <h2 data-i18n="settings">设置</h2>
+        <button class="icon-btn" id="closeSettings">×</button>
+      </div>
+      <label class="setting-row">
+        <span data-i18n="language">语言</span>
+        <select id="languageSelect">
+          <option value="system">跟随系统 / System</option>
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label class="setting-row">
+        <span data-i18n="appearance">外观</span>
+        <select id="themeSelect">
+          <option value="system">跟随系统 / System</option>
+          <option value="light">浅色 / Light</option>
+          <option value="dark">深色 / Dark</option>
+        </select>
+      </label>
+      <hr>
+      <button class="secondary-btn" id="exportBtn" data-i18n="exportBackup">导出完整备份</button>
+      <label class="secondary-btn file-btn">
+        <span data-i18n="importBackup">导入完整备份</span>
+        <input id="importInput" type="file" accept="application/json" hidden>
+      </label>
+      <p class="muted tiny" data-i18n="localOnly">当前版本数据保存在本机浏览器中。</p>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
