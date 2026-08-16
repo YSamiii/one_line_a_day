@@ -30,29 +30,12 @@
           <div class="streak" id="streakText"></div>
         </div>
 
-        <section class="entry-card card mine">
-          <div class="section-title-row">
-            <div>
-              <span class="dot mine-dot"></span>
-              <h2 data-i18n="myDay">我的一天</h2>
-            </div>
-            <span class="count" id="mineCount">0/120</span>
-          </div>
-          <textarea id="mineText" maxlength="120" data-i18n-placeholder="myPlaceholder" placeholder="用一句话记住今天。"></textarea>
-          <div class="tags" id="mineTags"></div>
-        </section>
+        <div id="blocksContainer"></div>
 
-        <section class="entry-card card xixi">
-          <div class="section-title-row">
-            <div>
-              <span class="dot xixi-dot"></span>
-              <h2 data-i18n="xixiDay">熹熹的一天</h2>
-            </div>
-            <span class="count" id="xixiCount">0/120</span>
-          </div>
-          <textarea id="xixiText" maxlength="120" data-i18n-placeholder="xixiPlaceholder" placeholder="今天熹熹有什么值得记住的？"></textarea>
-          <div class="tags" id="xixiTags"></div>
-        </section>
+        <button class="secondary-btn add-block-btn" id="addBlockBtn">
+          <span>＋</span>
+          <span data-i18n="addBlock">新增记录区块</span>
+        </button>
 
         <button class="primary-btn" id="saveBtn" data-i18n="saveToday">保存今天</button>
         <div id="saveHint" class="save-hint"></div>
@@ -123,8 +106,11 @@
         </div>
         <button class="icon-btn" id="closeDialog">×</button>
       </div>
-      <label><span data-i18n="myDay">我的一天</span><textarea id="dialogMine" maxlength="120"></textarea></label>
-      <label><span data-i18n="xixiDay">熹熹的一天</span><textarea id="dialogXixi" maxlength="120"></textarea></label>
+      <div id="dialogBlocksContainer"></div>
+      <button class="secondary-btn add-block-btn" id="dialogAddBlockBtn">
+        <span>＋</span>
+        <span data-i18n="addBlock">新增记录区块</span>
+      </button>
       <button class="primary-btn" id="dialogSave" data-i18n="save">保存</button>
     </div>
   </dialog>
