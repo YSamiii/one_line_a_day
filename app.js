@@ -10,6 +10,8 @@ let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{"language":"sy
 if(!settings.palette) settings.palette='dopamine';
 let currentMonth = new Date();
 let currentYear = new Date().getFullYear();
+let yearFilter = 'both';
+let searchFilter = 'both';
 let selectedDate = null;
 let pendingBlockContainer = null;
 let blockPresets = JSON.parse(localStorage.getItem(PRESETS_KEY) || 'null') || ['今天的工作','家庭','特别的一天'];
@@ -33,7 +35,7 @@ let entries=migrateEntries();
 const i18n={
   zh:{
     appTitle:'One Line a Day',today:'今天',calendar:'日历',year:'全年',review:'回顾',
-    myDay:'我的一天',saveToday:'保存今天',save:'保存',myPlaceholder:'用一句话记住今天。',
+    myDay:'我的一天',xixiDay:'熹熹的一天',both:'全部',mineShort:'我',xixiShort:'熹熹',jumpToMonth:'跳转月份',saveToday:'保存今天',save:'保存',myPlaceholder:'用一句话记住今天。',
     onThisDay:'往年今日',reviewDesc:'这里会显示去年、前年同一天留下的一句话。',search:'搜索',
     searchPlaceholder:'搜索关键词或标题',editDay:'编辑这一天',settings:'设置',language:'语言',
     appearance:'外观',colorTheme:'配色主题',exportBackup:'导出完整备份',importBackup:'导入完整备份',
@@ -43,7 +45,7 @@ const i18n={
   },
   en:{
     appTitle:'One Line a Day',today:'Today',calendar:'Calendar',year:'Year',review:'Review',
-    myDay:'My Day',saveToday:'Save Today',save:'Save',myPlaceholder:'Remember today in one sentence.',
+    myDay:'My Day',xixiDay:"Xixi's Day",both:'All',mineShort:'Me',xixiShort:'Xixi',jumpToMonth:'Jump to month',saveToday:'Save Today',save:'Save',myPlaceholder:'Remember today in one sentence.',
     onThisDay:'On This Day',reviewDesc:'See what you wrote on this date in previous years.',search:'Search',
     searchPlaceholder:'Search words or titles',editDay:'Edit This Day',settings:'Settings',language:'Language',
     appearance:'Appearance',colorTheme:'Color Theme',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
@@ -181,10 +183,30 @@ $('#saveBtn').onclick=()=>{
   setTimeout(()=>$('#saveHint').textContent='',1600);
 };
 
+
+function monthNamesFor(year){
+  const locale=lang()==='zh'?'zh-CN':'en-CA';
+  return [...Array(12)].map((_,m)=>new Intl.DateTimeFormat(locale,{month:'long'}).format(new Date(year,m,1)));
+}
+function renderCalendarMonthSelect(){
+  const sel=$('#calendarMonthSelect');
+  if(!sel) return;
+  const y=currentMonth.getFullYear();
+  const names=monthNamesFor(y);
+  sel.innerHTML=names.map((name,m)=>`<option value="${m}" ${m===currentMonth.getMonth()?'selected':''}>${y} · ${name}</option>`).join('');
+}
+function renderYearMonthSelect(){
+  const sel=$('#yearMonthSelect');
+  if(!sel) return;
+  const names=monthNamesFor(currentYear);
+  sel.innerHTML=`<option value="">${t('jumpToMonth')}</option>`+
+    names.map((name,m)=>`<option value="${m}">${name}</option>`).join('');
+}
+
 function weekdayLabels(){return lang()==='zh'?['一','二','三','四','五','六','日']:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];}
 function renderCalendar(){
   const y=currentMonth.getFullYear(),m=currentMonth.getMonth(),locale=lang()==='zh'?'zh-CN':'en-CA';
-  $('#monthTitle').textContent=new Intl.DateTimeFormat(locale,{year:'numeric',month:'long'}).format(currentMonth);
+  renderCalendarMonthSelect();
   $('#weekdayRow').innerHTML=weekdayLabels().map(x=>`<div>${x}</div>`).join('');
   const first=new Date(y,m,1),mondayIndex=(first.getDay()+6)%7,start=new Date(y,m,1-mondayIndex),todayK=dateKey(new Date());
   let html='';
@@ -201,7 +223,10 @@ function renderCalendar(){
 }
 $('#prevMonth').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1);renderCalendar()};
 $('#nextMonth').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1);renderCalendar()};
-$('#monthTitle').onclick=()=>{currentMonth=new Date();renderCalendar()};
+$('#calendarMonthSelect').onchange=e=>{
+  currentMonth=new Date(currentMonth.getFullYear(),Number(e.target.value),1);
+  renderCalendar();
+};
 
 function openEntryDialog(k){
   selectedDate=k;
@@ -220,23 +245,49 @@ $('#dialogSave').onclick=()=>{
 
 function renderYear(){
   $('#yearTitle').textContent=currentYear;
+  renderYearMonthSelect();
   const locale=lang()==='zh'?'zh-CN':'en-CA';
   const names=[...Array(12)].map((_,m)=>new Intl.DateTimeFormat(locale,{month:'long'}).format(new Date(currentYear,m,1)));
   $('#yearMonths').innerHTML=names.map((name,m)=>{
     const rows=Object.keys(entries).filter(k=>{
       const d=parseKey(k);return d.getFullYear()===currentYear&&d.getMonth()===m;
     }).sort().map(k=>{
-      const d=parseKey(k),lines=(entries[k].blocks||[]).filter(b=>b.text).map((b,i)=>
-        `<p class="${i===0?'mine-line':'xixi-line'}"><strong>${escapeHtml(i===0?t('myDay'):b.title)}：</strong>${escapeHtml(b.text)}</p>`
-      ).join('');
+      const d=parseKey(k);
+      const blocks=(entries[k].blocks||[]).filter(b=>b.text);
+      const filtered=blocks.filter((b,i)=>{
+        const isMine = b.id==='mine' || b.title==='我的一天' || b.title==='My Day';
+        const isXixi = b.title==='熹熹的一天' || b.title==="Xixi's Day";
+        if(yearFilter==='mine') return isMine;
+        if(yearFilter==='xixi') return isXixi;
+        return true;
+      });
+      const lines=filtered.map((b)=>{
+        const isMine = b.id==='mine' || b.title==='我的一天' || b.title==='My Day';
+        const cls = isMine ? 'mine-line' : 'xixi-line';
+        const title = isMine ? t('myDay') : (b.title==='熹熹的一天' || b.title==="Xixi's Day" ? t('xixiDay') : b.title);
+        return `<p class="${cls}"><strong>${escapeHtml(title)}：</strong>${escapeHtml(b.text)}</p>`;
+      }).join('');
       return lines?`<div class="year-entry" data-date="${k}"><div class="date">${d.getDate()}</div><div>${lines}</div></div>`:'';
     }).join('');
-    return `<div class="month-card"><h3>${name}</h3>${rows||`<div class="empty">${t('noEntry')}</div>`}</div>`;
+    return `<div class="month-card" id="year-month-${m}"><h3>${name}</h3>${rows||`<div class="empty">${t('noEntry')}</div>`}</div>`;
   }).join('');
   $$('.year-entry').forEach(x=>x.onclick=()=>openEntryDialog(x.dataset.date));
 }
 $('#prevYear').onclick=()=>{currentYear--;renderYear()};
 $('#nextYear').onclick=()=>{currentYear++;renderYear()};
+$$('[data-year-filter]').forEach(b=>b.onclick=()=>{
+  yearFilter=b.dataset.yearFilter;
+  $$('[data-year-filter]').forEach(x=>x.classList.toggle('active',x===b));
+  renderYear();
+});
+$('#yearMonthSelect').onchange=e=>{
+  const month=e.target.value;
+  if(month==='') return;
+  const target=document.getElementById(`year-month-${month}`);
+  if(target){
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+};
 
 function renderReview(){
   const now=new Date(),list=[];
@@ -256,17 +307,34 @@ function renderSearch(){
   if(!q){$('#searchResults').innerHTML='';return;}
   const out=[];
   Object.keys(entries).sort().reverse().forEach(k=>{
-    const matched=(entries[k].blocks||[]).filter((b,i)=>`${i===0?t('myDay'):b.title} ${b.text}`.toLowerCase().includes(q));
+    const matched=(entries[k].blocks||[]).filter((b)=>{
+      const isMine = b.id==='mine' || b.title==='我的一天' || b.title==='My Day';
+      const isXixi = b.title==='熹熹的一天' || b.title==="Xixi's Day";
+      if(searchFilter==='mine' && !isMine) return false;
+      if(searchFilter==='xixi' && !isXixi) return false;
+      const displayTitle = isMine ? t('myDay') : (isXixi ? t('xixiDay') : b.title);
+      return `${displayTitle} ${b.text}`.toLowerCase().includes(q);
+    });
     if(matched.length) out.push({k,matched});
   });
   $('#searchResults').innerHTML=out.length?out.map(r=>`
     <div class="search-item" data-date="${r.k}">
       <div class="eyebrow">${r.k}</div>
-      ${r.matched.map((b,i)=>`<p><strong>${escapeHtml(b.title)}：</strong>${escapeHtml(b.text)}</p>`).join('')}
+      ${r.matched.map(b=>{
+        const isMine=b.id==='mine'||b.title==='我的一天'||b.title==='My Day';
+        const isXixi=b.title==='熹熹的一天'||b.title==="Xixi's Day";
+        const title=isMine?t('myDay'):(isXixi?t('xixiDay'):b.title);
+        return `<p><strong>${escapeHtml(title)}：</strong>${escapeHtml(b.text)}</p>`;
+      }).join('')}
     </div>`).join(''):`<div class="empty">${t('noEntry')}</div>`;
   $$('.search-item').forEach(x=>x.onclick=()=>openEntryDialog(x.dataset.date));
 }
 $('#searchInput').addEventListener('input',renderSearch);
+$$('[data-search-filter]').forEach(b=>b.onclick=()=>{
+  searchFilter=b.dataset.searchFilter;
+  $$('[data-search-filter]').forEach(x=>x.classList.toggle('active',x===b));
+  renderSearch();
+});
 
 $$('.bottom-nav button').forEach(b=>b.onclick=()=>{
   $$('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));
@@ -304,7 +372,7 @@ $('#themeSelect').onchange=e=>{settings.theme=e.target.value;localStorage.setIte
 $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 
 $('#exportBtn').onclick=()=>{
-  const payload={app:'One Line a Day',version:6,exportedAt:new Date().toISOString(),settings,blockPresets,entries};
+  const payload={app:'One Line a Day',version:9,exportedAt:new Date().toISOString(),settings,blockPresets,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);

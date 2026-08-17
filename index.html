@@ -44,7 +44,7 @@
       <section id="calendarView" class="view">
         <div class="calendar-head">
           <button class="icon-btn" id="prevMonth">‹</button>
-          <button class="month-title" id="monthTitle"></button>
+          <select class="month-select" id="calendarMonthSelect" aria-label="Select month"></select>
           <button class="icon-btn" id="nextMonth">›</button>
         </div>
         <div class="weekday-row" id="weekdayRow"></div>
@@ -61,8 +61,12 @@
           <h2 id="yearTitle"></h2>
           <button class="icon-btn" id="nextYear">›</button>
         </div>
+        <div class="jump-row">
+          <span data-i18n="jumpToMonth">跳转月份</span>
+          <select class="month-select" id="yearMonthSelect" aria-label="Jump to month"></select>
+        </div>
         <div class="segmented">
-          <button data-year-filter="both" class="active" data-i18n="both">一起</button>
+          <button data-year-filter="both" class="active" data-i18n="both">全部</button>
           <button data-year-filter="mine" data-i18n="myDay">我的一天</button>
           <button data-year-filter="xixi" data-i18n="xixiDay">熹熹的一天</button>
         </div>
@@ -80,7 +84,7 @@
           <h2 data-i18n="search">搜索</h2>
           <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索关键词或标签" />
           <div class="segmented small">
-            <button data-search-filter="both" class="active" data-i18n="both">一起</button>
+            <button data-search-filter="both" class="active" data-i18n="both">全部</button>
             <button data-search-filter="mine" data-i18n="mineShort">我</button>
             <button data-search-filter="xixi" data-i18n="xixiShort">熹熹</button>
           </div>

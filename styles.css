@@ -378,3 +378,47 @@ body{
 :root[data-palette="morandi"] .secondary-btn.add-block-btn{
   background:color-mix(in srgb,var(--mint) 8%,var(--card)) !important;
 }
+
+/* v8 fixes */
+.topbar h1{
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  color:var(--text) !important;
+}
+.segmented button{cursor:pointer}
+.segmented button.active{font-weight:750}
+
+/* v9 month navigation */
+.month-select{
+  appearance:auto;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  border-radius:14px;
+  padding:10px 12px;
+  font:inherit;
+  font-size:15px;
+  font-weight:650;
+  min-width:180px;
+  max-width:70%;
+}
+.calendar-head .month-select{text-align:center}
+.jump-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:-2px 0 14px;
+  color:var(--muted);
+  font-size:13px;
+}
+.jump-row .month-select{
+  min-width:150px;
+  max-width:62%;
+  font-size:14px;
+  padding:9px 11px;
+}
+.month-card{
+  scroll-margin-top:95px;
+}
