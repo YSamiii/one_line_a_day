@@ -174,7 +174,20 @@ function eligibleBatchBlocks(){
   const mode=$('#batchBlockSelect')?.value||'mine',range=$('#batchRangeSelect')?.value||'year',onlyNew=$('#onlyUnprocessed')?.checked!==false,out=[];
   Object.keys(entries).sort().forEach(k=>{const d=parseKey(k);if(range==='year'&&d.getFullYear()!==currentYear)return;if(range==='month'&&(d.getFullYear()!==currentYear||d.getMonth()!==currentMonth.getMonth()))return;(entries[k].blocks||[]).forEach((b,i)=>{const mine=b.id==='mine'||b.title==='我的一天'||b.title==='My Day';const xixi=b.title==='熹熹的一天'||b.title==="Xixi's Day";if(mode==='mine'&&!mine)return;if(mode==='xixi'&&!xixi)return;if(!b.text)return;if(onlyNew&&b.aiText)return;out.push({key:k,index:i,block:b});});});return out;
 }
-function refreshBatchSummary(){ return; }
+function refreshBatchSummary(){if($('#batchSummary'))$('#batchSummary').textContent=t('batchCount',{n:eligibleBatchBlocks().length});}
+async function previewBatch(){
+  saveAiSettingsFromForm();if(!aiConfigured()){alert(t('aiNotConfigured'));return;}const items=eligibleBatchBlocks().slice(0,10),box=$('#batchPreview');if(!items.length){box.innerHTML=`<div class="empty">${t('noEligible')}</div>`;return;}box.innerHTML='';for(const item of items){const card=document.createElement('div');card.className='card batch-preview-item';card.innerHTML=`<div class="eyebrow">${item.key} · ${escapeHtml(item.block.title)}</div><p><strong>${t('showOriginal')}:</strong> ${escapeHtml(item.block.text)}</p><p class="preview-ai"><strong>${t('showAi')}:</strong> …</p>`;box.appendChild(card);try{const r=await callAi(item.block.text);card.querySelector('.preview-ai').innerHTML=`<strong>${t('showAi')}:</strong> ${escapeHtml(r)}`;}catch(err){card.querySelector('.preview-ai').textContent=`${t('aiError')}: ${err.message}`;}}}
+async function runBatch(){
+  saveAiSettingsFromForm();if(!aiConfigured()){alert(t('aiNotConfigured'));return;}const items=eligibleBatchBlocks();if(!items.length){alert(t('noEligible'));return;}const progress=$('#batchProgress'),btn=$('#runBatchBtn');btn.disabled=true;let done=0;try{for(const item of items){try{entries[item.key].blocks[item.index].aiText=await callAi(item.block.text);saveEntries();}catch(err){console.error(item.key,err);}done++;progress.textContent=t('batchDone',{done,total:items.length});}progress.textContent='✓ '+t('batchFinished');renderYear();refreshBatchSummary();}finally{btn.disabled=false;}}
+function renderToday(){
+  const now=new Date(),locale=lang()==='zh'?'zh-CN':'en-CA';
+  $('#todayLabel').textContent=new Intl.DateTimeFormat(locale,{weekday:'long'}).format(now);
+  $('#bigDate').textContent=now.getDate();
+  $('#subDate').textContent=new Intl.DateTimeFormat(locale,{year:'numeric',month:'long',weekday:'long'}).format(now);
+  renderBlocks($('#blocksContainer'),getEntry(dateKey(now)).blocks);
+  const n=Object.values(entries).filter(e=>e.blocks?.some(b=>b.text)).length;
+  $('#streakText').textContent=t('daysRecorded',{n});
+}
 $('#addBlockBtn').onclick=()=>openBlockPicker($('#blocksContainer'));
 $('#saveBtn').onclick=()=>{
   const k=dateKey(new Date()),blocks=collectBlocks($('#blocksContainer'));
@@ -247,6 +260,7 @@ $('#dialogSave').onclick=()=>{
 function renderYear(){
   $('#yearTitle').textContent=currentYear;
   renderYearMonthSelect();
+  setTimeout(refreshBatchSummary,0);
   const locale=lang()==='zh'?'zh-CN':'en-CA';
   const names=[...Array(12)].map((_,m)=>new Intl.DateTimeFormat(locale,{month:'long'}).format(new Date(currentYear,m,1)));
   $('#yearMonths').innerHTML=names.map((name,m)=>{
@@ -337,6 +351,17 @@ $$('[data-search-filter]').forEach(b=>b.onclick=()=>{
   renderSearch();
 });
 
+['#batchBlockSelect','#batchRangeSelect','#onlyUnprocessed'].forEach(sel=>{const el=$(sel);if(el)el.addEventListener('change',refreshBatchSummary);});
+if($('#previewBatchBtn'))$('#previewBatchBtn').onclick=previewBatch;
+if($('#runBatchBtn'))$('#runBatchBtn').onclick=runBatch;
+$$('.bottom-nav button').forEach(b=>b.onclick=()=>{
+  $$('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));
+  $$('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));
+  if(b.dataset.view==='calendarView')renderCalendar();
+  if(b.dataset.view==='yearView')renderYear();
+  if(b.dataset.view==='reviewView')renderReview();
+});
+
 $('#closeBlockPicker').onclick=()=>$('#blockPickerDialog').close();
 $('#customBlockBtn').onclick=()=>{
   const title=prompt(t('customBlock'));
@@ -369,7 +394,7 @@ $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.se
 
 $('#exportBtn').onclick=()=>{
   const safeAiSettings={...aiSettings,apiKey:''};
-  const payload={app:'One Line a Day',version:13,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
+  const payload={app:'One Line a Day',version:14,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);
