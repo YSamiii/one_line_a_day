@@ -1,15 +1,20 @@
-# One Line a Day — PWA v11
+# One Line a Day — PWA v12
 
-修复：
-- 修复 gpt-5-mini 测试连接时报错：
-  `temperature does not support 0.2`
-- AI 请求现在默认不发送 `temperature`
-- 因此兼容 gpt-5-mini 等只接受默认 temperature 的模型
-- Provider / Endpoint / Model / API Key 设置保持不变
-- 单条 AI 整理、批量 AI 整理、历史记录、月份跳转、多主题、新图标等 v10 功能全部保留
+更新：
+- AI 整理版本默认隐藏
+- 设置 → AI 设置 新增「显示 AI 整理版本」开关
+- 默认关闭
+- 关闭后：
+  - 今日/历史编辑页面不会自动显示以前保存的 AI 版本
+  - 全年和搜索仍只显示原始记录
+  - 批量 AI 完成后不会把 AI 版本铺到主界面
+- 以前已经生成的 aiText 不会删除
+- 导出备份仍会保存 aiText
+- 如果以后想看，可打开「显示 AI 整理版本」
+- 用户主动点击单条「AI 整理成一句话」时，本次结果仍会临时显示，方便决定是否采用
 
-更新方式：
-1. 解压 ZIP。
-2. 将全部文件覆盖上传到原 GitHub Pages 仓库根目录。
-3. 发布后用网址末尾加 `?v=11` 打开一次。
-4. 回到 App 设置 → AI 设置 → 测试 AI 连接。
+其他 v11 功能全部保留。
+
+部署：
+解压 ZIP 后覆盖 GitHub Pages 仓库根目录。
+建议发布后用 ?v=12 打开一次。

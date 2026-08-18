@@ -16,7 +16,8 @@ let searchFilter = 'both';
 let selectedDate = null;
 let pendingBlockContainer = null;
 let blockPresets = JSON.parse(localStorage.getItem(PRESETS_KEY) || 'null') || ['今天的工作','家庭','特别的一天'];
-let aiSettings = JSON.parse(localStorage.getItem(AI_SETTINGS_KEY) || 'null') || {providerName:'',endpoint:'',model:'',apiKey:'',style:'faithful'};
+let aiSettings = JSON.parse(localStorage.getItem(AI_SETTINGS_KEY) || 'null') || {providerName:'',endpoint:'',model:'',apiKey:'',style:'faithful',showAiVersions:false};
+if(aiSettings.showAiVersions===undefined) aiSettings.showAiVersions=false;
 
 function migrateEntries(){
   const current = localStorage.getItem(STORAGE_KEY);
@@ -43,7 +44,7 @@ const i18n={
     appearance:'外观',colorTheme:'配色主题',exportBackup:'导出完整备份',importBackup:'导入完整备份',
     localOnly:'当前版本数据保存在本机浏览器中。',noEntry:'还没有记录。',saved:'已保存',
     daysRecorded:'已记录 {n} 天',addBlock:'新增记录区块',newBlock:'新记录',
-    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
+    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',showAiVersions:'显示 AI 整理版本',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
   },
   en:{
     appTitle:'One Line a Day',today:'Today',calendar:'Calendar',year:'Year',review:'Review',
@@ -53,7 +54,7 @@ const i18n={
     appearance:'Appearance',colorTheme:'Color Theme',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
     localOnly:'This version stores data in this browser.',noEntry:'No entry yet.',saved:'Saved',
     daysRecorded:'{n} days recorded',addBlock:'Add another block',newBlock:'New block',
-    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
+    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',showAiVersions:'Show AI versions',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
   }
 };
 
@@ -79,6 +80,7 @@ function applySettings(){
   if($('#aiModel')) $('#aiModel').value=aiSettings.model||'';
   if($('#aiApiKey')) $('#aiApiKey').value=aiSettings.apiKey||'';
   if($('#aiStyle')) $('#aiStyle').value=aiSettings.style||'faithful';
+  if($('#showAiVersions')) $('#showAiVersions').checked=aiSettings.showAiVersions===true;
   $$('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
   $$('[data-i18n-placeholder]').forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));
   $('#appTitle').textContent=t('appTitle');
@@ -105,7 +107,7 @@ function escapeAttr(s=''){return escapeHtml(s);}
 
 function blockHTML(block,index){
   const isDefault=index===0;
-  const aiText=block.aiText||'';
+  const aiText=aiSettings.showAiVersions===true ? (block.aiText||'') : '';
   return `<section class="dynamic-block card ${isDefault?'default-block':'extra-block'}" data-block-id="${escapeAttr(block.id)}">
     <div class="block-title-row"><div class="block-title-left"><span class="block-color-dot" style="background:${isDefault?'var(--mine)':'var(--xixi)'}"></span><input class="block-title-input" ${isDefault?'readonly':''} maxlength="30" value="${escapeAttr(isDefault?t('myDay'):(block.title||t('newBlock')))}"></div>${isDefault?'':`<button class="remove-block" aria-label="delete">×</button>`}</div>
     <textarea maxlength="500" placeholder="${escapeAttr(isDefault?t('myPlaceholder'):t('blockPlaceholder'))}">${escapeHtml(block.text||'')}</textarea>
@@ -137,10 +139,22 @@ function renderPresetSettings(){
   const box=$('#presetSettingsList');if(!box)return;box.innerHTML=blockPresets.map((title,i)=>`<span class="preset-pill">${escapeHtml(title)}<button data-index="${i}" aria-label="delete">×</button></span>`).join('');box.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{blockPresets.splice(Number(btn.dataset.index),1);localStorage.setItem(PRESETS_KEY,JSON.stringify(blockPresets));renderPresetSettings();});
 }
 function collectBlocks(container){
-  return [...container.querySelectorAll('.dynamic-block')].map((el,i)=>({id:i===0?'mine':(el.dataset.blockId||uid()),title:i===0?t('myDay'):(el.querySelector('.block-title-input').value.trim()||t('newBlock')),text:el.querySelector('textarea').value.trim(),aiText:el.querySelector('.ai-result-text')?.textContent.trim()||''}));
+  const key = selectedDate || dateKey(new Date());
+  const sourceBlocks = entries[key]?.blocks || [];
+  return [...container.querySelectorAll('.dynamic-block')].map((el,i)=>{
+    const id=i===0?'mine':(el.dataset.blockId||uid());
+    const visibleAi=el.querySelector('.ai-result-text')?.textContent.trim()||'';
+    const savedAi=(sourceBlocks.find(b=>b.id===id)?.aiText)||'';
+    return {
+      id,
+      title:i===0?t('myDay'):(el.querySelector('.block-title-input').value.trim()||t('newBlock')),
+      text:el.querySelector('textarea').value.trim(),
+      aiText:visibleAi||savedAi
+    };
+  });
 }
 function saveAiSettingsFromForm(){
-  aiSettings={providerName:$('#aiProviderName')?.value.trim()||'',endpoint:$('#aiEndpoint')?.value.trim()||'',model:$('#aiModel')?.value.trim()||'',apiKey:$('#aiApiKey')?.value.trim()||'',style:$('#aiStyle')?.value||'faithful'};localStorage.setItem(AI_SETTINGS_KEY,JSON.stringify(aiSettings));
+  aiSettings={providerName:$('#aiProviderName')?.value.trim()||'',endpoint:$('#aiEndpoint')?.value.trim()||'',model:$('#aiModel')?.value.trim()||'',apiKey:$('#aiApiKey')?.value.trim()||'',style:$('#aiStyle')?.value||'faithful',showAiVersions:$('#showAiVersions')?.checked===true};localStorage.setItem(AI_SETTINGS_KEY,JSON.stringify(aiSettings));
 }
 function aiConfigured(){return !!(aiSettings.endpoint&&aiSettings.model&&aiSettings.apiKey);}
 function styleInstruction(){
@@ -374,12 +388,13 @@ $('#closeSettings').onclick=()=>$('#settingsDialog').close();
 $('#languageSelect').onchange=e=>{settings.language=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 $('#themeSelect').onchange=e=>{settings.theme=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 ['#aiProviderName','#aiEndpoint','#aiModel','#aiApiKey','#aiStyle'].forEach(sel=>{const el=$(sel);if(el)el.addEventListener('change',saveAiSettingsFromForm);});
+if($('#showAiVersions')) $('#showAiVersions').onchange=()=>{saveAiSettingsFromForm();renderAll();};
 $('#testAiBtn').onclick=async()=>{const status=$('#aiTestStatus');try{await callAi(lang()==='zh'?'今天心情很好，事情也做完了。':'I had a good day and finished my work.');status.textContent='✓ '+t('aiReady');}catch(err){status.textContent=`${t('aiError')}: ${err.message}`;}};
 $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
 
 $('#exportBtn').onclick=()=>{
   const safeAiSettings={...aiSettings,apiKey:''};
-  const payload={app:'One Line a Day',version:11,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
+  const payload={app:'One Line a Day',version:12,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);
