@@ -1,16 +1,15 @@
-# One Line a Day — PWA v10
+# One Line a Day — PWA v11
 
-新增 AI：
-- 设置中可填写 Provider / Endpoint / Model / API Key
-- 以后换兼容 Provider 只改设置，不用重新编写 App
-- 单条记录可 AI 整理成一句话，并保留原文
-- 全年页可批量整理：我的一天 / 熹熹的一天 / 全部区块
-- 范围可选当前年份 / 当前月份 / 全部记录
-- 可仅处理还没有 AI 版本的记录
-- 可先预览前 10 条
-- 三种风格：忠实精简 / 自然日记 / 超短一句
-- API Key 只保存在本机；导出备份时不会导出 Key
+修复：
+- 修复 gpt-5-mini 测试连接时报错：
+  `temperature does not support 0.2`
+- AI 请求现在默认不发送 `temperature`
+- 因此兼容 gpt-5-mini 等只接受默认 temperature 的模型
+- Provider / Endpoint / Model / API Key 设置保持不变
+- 单条 AI 整理、批量 AI 整理、历史记录、月份跳转、多主题、新图标等 v10 功能全部保留
 
-保留 v9 月份跳转、v8 语言与筛选修复、五套主题和新版桌面图标。
-
-部署：解压后覆盖 GitHub Pages 根目录，首次建议用 ?v=10 打开。
+更新方式：
+1. 解压 ZIP。
+2. 将全部文件覆盖上传到原 GitHub Pages 仓库根目录。
+3. 发布后用网址末尾加 `?v=11` 打开一次。
+4. 回到 App 设置 → AI 设置 → 测试 AI 连接。

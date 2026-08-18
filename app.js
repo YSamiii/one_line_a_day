@@ -150,7 +150,7 @@ function styleInstruction(){
 }
 async function callAi(text){
   saveAiSettingsFromForm();if(!aiConfigured())throw new Error(t('aiNotConfigured'));
-  const res=await fetch(aiSettings.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${aiSettings.apiKey}`},body:JSON.stringify({model:aiSettings.model,messages:[{role:'system',content:styleInstruction()},{role:'user',content:text}],temperature:0.2})});
+  const res=await fetch(aiSettings.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${aiSettings.apiKey}`},body:JSON.stringify({model:aiSettings.model,messages:[{role:'system',content:styleInstruction()},{role:'user',content:text}]})});
   if(!res.ok)throw new Error(`${res.status} ${await res.text()}`);const data=await res.json();const out=data?.choices?.[0]?.message?.content??data?.output_text??data?.response??'';if(!out)throw new Error('No AI text returned');return String(out).trim().replace(/^["“]|["”]$/g,'');
 }
 async function runAiForBlock(block){
@@ -379,7 +379,7 @@ $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.se
 
 $('#exportBtn').onclick=()=>{
   const safeAiSettings={...aiSettings,apiKey:''};
-  const payload={app:'One Line a Day',version:10,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
+  const payload={app:'One Line a Day',version:11,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);
