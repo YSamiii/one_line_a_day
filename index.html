@@ -193,6 +193,15 @@
       <hr>
 
       <div class="settings-section">
+        <button class="secondary-btn compact-ai-entry" id="openHistoryAiBtn">
+          <span data-i18n="historyAi">批量整理历史记录</span>
+          <span class="chevron">›</span>
+        </button>
+        <p class="muted tiny" data-i18n="historyAiDesc">选择区块和时间范围，批量生成 AI 整理结果。</p>
+      </div>
+      <hr>
+
+      <div class="settings-section">
         <div class="settings-section-head">
           <div>
             <div class="eyebrow" data-i18n="blockPresets">常用区块标题</div>
@@ -212,6 +221,51 @@
         <input id="importInput" type="file" accept="application/json" hidden>
       </label>
       <p class="muted tiny" data-i18n="localOnly">当前版本数据保存在本机浏览器中。</p>
+    </div>
+  </dialog>
+
+  <dialog id="historyAiDialog">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow" data-i18n="historyAi">批量整理历史记录</div>
+          <h2 data-i18n="historyAiTitle">历史记录 AI 整理</h2>
+        </div>
+        <button class="icon-btn" id="closeHistoryAi">×</button>
+      </div>
+
+      <label class="setting-stack">
+        <span data-i18n="batchBlock">处理区块</span>
+        <select id="historyBatchBlock">
+          <option value="mine" data-i18n="myDay">我的一天</option>
+          <option value="xixi" data-i18n="xixiDay">熹熹的一天</option>
+          <option value="all" data-i18n="allBlocks">全部区块</option>
+        </select>
+      </label>
+
+      <label class="setting-stack">
+        <span data-i18n="batchRange">范围</span>
+        <select id="historyBatchRange">
+          <option value="year" data-i18n="thisYear">当前年份</option>
+          <option value="month" data-i18n="currentMonth">当前月份</option>
+          <option value="all" data-i18n="allRecords">全部记录</option>
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span data-i18n="onlyUnprocessed">仅处理尚未 AI 整理的记录</span>
+        <input id="historyOnlyUnprocessed" type="checkbox" checked>
+      </label>
+
+      <div class="batch-count-box" id="historyBatchSummary"></div>
+
+      <div class="history-ai-actions">
+        <button class="secondary-btn" id="historyPreviewBtn" data-i18n="previewFirst10">预览前 10 条</button>
+        <button class="primary-btn" id="historyRunBtn" data-i18n="runBatch">开始批量整理</button>
+      </div>
+
+      <div id="historyBatchProgress" class="save-hint"></div>
+      <div id="historyBatchPreview" class="batch-preview"></div>
     </div>
   </dialog>
 

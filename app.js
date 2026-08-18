@@ -44,7 +44,7 @@ const i18n={
     appearance:'外观',colorTheme:'配色主题',exportBackup:'导出完整备份',importBackup:'导入完整备份',
     localOnly:'当前版本数据保存在本机浏览器中。',noEntry:'还没有记录。',saved:'已保存',
     daysRecorded:'已记录 {n} 天',addBlock:'新增记录区块',newBlock:'新记录',
-    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',showAiVersions:'显示 AI 整理版本',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
+    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',historyAi:'批量整理历史记录',historyAiDesc:'选择区块和时间范围，批量生成 AI 整理结果。',historyAiTitle:'历史记录 AI 整理',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',showAiVersions:'显示 AI 整理版本',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
   },
   en:{
     appTitle:'One Line a Day',today:'Today',calendar:'Calendar',year:'Year',review:'Review',
@@ -54,7 +54,7 @@ const i18n={
     appearance:'Appearance',colorTheme:'Color Theme',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
     localOnly:'This version stores data in this browser.',noEntry:'No entry yet.',saved:'Saved',
     daysRecorded:'{n} days recorded',addBlock:'Add another block',newBlock:'New block',
-    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',showAiVersions:'Show AI versions',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
+    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',historyAi:'Batch organize history',historyAiDesc:'Choose blocks and a time range to generate AI versions in bulk.',historyAiTitle:'History AI Organizer',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',showAiVersions:'Show AI versions',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
   }
 };
 
@@ -179,6 +179,87 @@ async function previewBatch(){
   saveAiSettingsFromForm();if(!aiConfigured()){alert(t('aiNotConfigured'));return;}const items=eligibleBatchBlocks().slice(0,10),box=$('#batchPreview');if(!items.length){box.innerHTML=`<div class="empty">${t('noEligible')}</div>`;return;}box.innerHTML='';for(const item of items){const card=document.createElement('div');card.className='card batch-preview-item';card.innerHTML=`<div class="eyebrow">${item.key} · ${escapeHtml(item.block.title)}</div><p><strong>${t('showOriginal')}:</strong> ${escapeHtml(item.block.text)}</p><p class="preview-ai"><strong>${t('showAi')}:</strong> …</p>`;box.appendChild(card);try{const r=await callAi(item.block.text);card.querySelector('.preview-ai').innerHTML=`<strong>${t('showAi')}:</strong> ${escapeHtml(r)}`;}catch(err){card.querySelector('.preview-ai').textContent=`${t('aiError')}: ${err.message}`;}}}
 async function runBatch(){
   saveAiSettingsFromForm();if(!aiConfigured()){alert(t('aiNotConfigured'));return;}const items=eligibleBatchBlocks();if(!items.length){alert(t('noEligible'));return;}const progress=$('#batchProgress'),btn=$('#runBatchBtn');btn.disabled=true;let done=0;try{for(const item of items){try{entries[item.key].blocks[item.index].aiText=await callAi(item.block.text);saveEntries();}catch(err){console.error(item.key,err);}done++;progress.textContent=t('batchDone',{done,total:items.length});}progress.textContent='✓ '+t('batchFinished');renderYear();refreshBatchSummary();}finally{btn.disabled=false;}}
+
+function historyEligibleBlocks(){
+  const blockMode=$('#historyBatchBlock')?.value||'mine';
+  const range=$('#historyBatchRange')?.value||'year';
+  const onlyNew=$('#historyOnlyUnprocessed')?.checked!==false;
+  const out=[];
+  Object.keys(entries).sort().forEach(k=>{
+    const d=parseKey(k);
+    if(range==='year' && d.getFullYear()!==currentYear) return;
+    if(range==='month' && (d.getFullYear()!==currentYear || d.getMonth()!==currentMonth.getMonth())) return;
+    (entries[k].blocks||[]).forEach((b,i)=>{
+      const isMine=b.id==='mine'||b.title==='我的一天'||b.title==='My Day';
+      const isXixi=b.title==='熹熹的一天'||b.title==="Xixi's Day";
+      if(blockMode==='mine' && !isMine) return;
+      if(blockMode==='xixi' && !isXixi) return;
+      if(!b.text) return;
+      if(onlyNew && b.aiText) return;
+      out.push({key:k,index:i,block:b});
+    });
+  });
+  return out;
+}
+function refreshHistoryBatchSummary(){
+  const el=$('#historyBatchSummary');
+  if(!el) return;
+  const count=historyEligibleBlocks().length;
+  el.textContent=t('batchCount',{n:count});
+}
+async function previewHistoryBatch(){
+  saveAiSettingsFromForm();
+  if(!aiConfigured()){alert(t('aiNotConfigured'));return;}
+  const items=historyEligibleBlocks().slice(0,10);
+  const box=$('#historyBatchPreview');
+  if(!items.length){
+    box.innerHTML=`<div class="empty">${t('noEligible')}</div>`;
+    return;
+  }
+  box.innerHTML='';
+  for(const item of items){
+    const card=document.createElement('div');
+    card.className='card batch-preview-item';
+    card.innerHTML=`<div class="eyebrow">${item.key} · ${escapeHtml(item.block.title)}</div>
+      <p><strong>${t('showOriginal')}:</strong> ${escapeHtml(item.block.text)}</p>
+      <p class="preview-ai"><strong>${t('showAi')}:</strong> …</p>`;
+    box.appendChild(card);
+    try{
+      const r=await callAi(item.block.text);
+      card.querySelector('.preview-ai').innerHTML=`<strong>${t('showAi')}:</strong> ${escapeHtml(r)}`;
+    }catch(err){
+      card.querySelector('.preview-ai').textContent=`${t('aiError')}: ${err.message}`;
+    }
+  }
+}
+async function runHistoryBatch(){
+  saveAiSettingsFromForm();
+  if(!aiConfigured()){alert(t('aiNotConfigured'));return;}
+  const items=historyEligibleBlocks();
+  if(!items.length){alert(t('noEligible'));return;}
+  const progress=$('#historyBatchProgress');
+  const btn=$('#historyRunBtn');
+  btn.disabled=true;
+  let done=0;
+  try{
+    for(const item of items){
+      try{
+        const result=await callAi(item.block.text);
+        entries[item.key].blocks[item.index].aiText=result;
+        saveEntries();
+      }catch(err){
+        console.error(item.key,err);
+      }
+      done++;
+      progress.textContent=t('batchDone',{done,total:items.length});
+    }
+    progress.textContent='✓ '+t('batchFinished');
+    refreshHistoryBatchSummary();
+  }finally{
+    btn.disabled=false;
+  }
+}
+
 function renderToday(){
   const now=new Date(),locale=lang()==='zh'?'zh-CN':'en-CA';
   $('#todayLabel').textContent=new Intl.DateTimeFormat(locale,{weekday:'long'}).format(now);
@@ -383,6 +464,20 @@ $('#newPresetInput').addEventListener('keydown',e=>{
   if(e.key==='Enter'){e.preventDefault();$('#addPresetBtn').click();}
 });
 
+
+if($('#openHistoryAiBtn')) $('#openHistoryAiBtn').onclick=()=>{
+  refreshHistoryBatchSummary();
+  $('#historyBatchPreview').innerHTML='';
+  $('#historyBatchProgress').textContent='';
+  $('#historyAiDialog').showModal();
+};
+if($('#closeHistoryAi')) $('#closeHistoryAi').onclick=()=>$('#historyAiDialog').close();
+['#historyBatchBlock','#historyBatchRange','#historyOnlyUnprocessed'].forEach(sel=>{
+  const el=$(sel); if(el) el.addEventListener('change',refreshHistoryBatchSummary);
+});
+if($('#historyPreviewBtn')) $('#historyPreviewBtn').onclick=previewHistoryBatch;
+if($('#historyRunBtn')) $('#historyRunBtn').onclick=runHistoryBatch;
+
 $('#settingsBtn').onclick=()=>{renderPresetSettings();$('#settingsDialog').showModal();};
 $('#closeSettings').onclick=()=>$('#settingsDialog').close();
 $('#languageSelect').onchange=e=>{settings.language=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
@@ -394,7 +489,7 @@ $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.se
 
 $('#exportBtn').onclick=()=>{
   const safeAiSettings={...aiSettings,apiKey:''};
-  const payload={app:'One Line a Day',version:14,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
+  const payload={app:'One Line a Day',version:15,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);
