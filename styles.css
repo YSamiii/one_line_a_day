@@ -443,3 +443,8 @@ body{
 @media(max-width:480px){
   .history-ai-actions{grid-template-columns:1fr}
 }
+
+/* v16 PDF export */
+.pdf-export-card{padding:18px;margin:0 0 14px}
+.pdf-export-card p{margin:9px 0 12px}
+#pdfExportDialog .dialog-inner{max-height:82vh;overflow:auto}

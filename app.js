@@ -44,7 +44,7 @@ const i18n={
     appearance:'外观',colorTheme:'配色主题',exportBackup:'导出完整备份',importBackup:'导入完整备份',
     localOnly:'当前版本数据保存在本机浏览器中。',noEntry:'还没有记录。',saved:'已保存',
     daysRecorded:'已记录 {n} 天',addBlock:'新增记录区块',newBlock:'新记录',
-    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',historyAi:'批量整理历史记录',historyAiDesc:'选择区块和时间范围，批量生成 AI 整理结果。',historyAiTitle:'历史记录 AI 整理',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',showAiVersions:'显示 AI 整理版本',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
+    blockPlaceholder:'用一句话记录这个部分。',chooseBlock:'选择记录区块',customBlock:'自定义标题',blockPresets:'常用区块标题',blockPresetsDesc:'新增记录时直接选择，不用每天重新输入标题。',presetPlaceholder:'例如：熹熹的一天',add:'添加',aiSettings:'AI 设置',aiSettingsDesc:'可更换 Provider，无需重新修改 App。',historyAi:'批量整理历史记录',historyAiDesc:'选择区块和时间范围，批量生成 AI 整理结果。',historyAiTitle:'历史记录 AI 整理',pdfExport:'导出 Year at a Glance PDF',pdfExportDesc:'选择年份和指定 Block，导出成年度日历图。',pdfExportButton:'选择并导出 PDF',pdfOptions:'导出设置',exportYear:'年份',exportBlock:'导出的 Block',pdfLayout:'版式',twoPages:'两页：1–6 月 / 7–12 月',onePage:'一页：全年 12 个月',includeEmptyDays:'保留没有记录的日期',exportPdfNow:'导出 PDF',pdfGenerating:'正在生成 PDF…',pdfDone:'PDF 已生成',pdfNoBlock:'没有可导出的 Block',pdfRecords:'该 Block 在此年份共有 {n} 条记录',providerName:'Provider 名称',endpoint:'API Endpoint',modelName:'模型',apiKey:'API Key',aiStyle:'整理风格',styleFaithful:'忠实精简',styleNatural:'自然日记',styleShort:'超短一句',showAiVersions:'显示 AI 整理版本',testAi:'测试 AI 连接',aiReady:'AI 连接成功',aiNotConfigured:'请先填写 Endpoint、Model 和 API Key',aiOrganize:'AI 整理成一句话',useAi:'使用这句话',regenerate:'重新生成',aiResult:'AI 整理结果',batchAi:'批量 AI 整理',batchBlock:'处理区块',allBlocks:'全部区块',batchRange:'范围',thisYear:'当前年份',currentMonth:'当前月份',allRecords:'全部记录',onlyUnprocessed:'仅处理尚未 AI 整理的记录',previewFirst10:'预览前 10 条',runBatch:'开始批量整理',batchCount:'预计处理 {n} 条',batchDone:'已完成 {done}/{total}',batchFinished:'批量整理完成',noEligible:'没有符合条件的记录',aiError:'AI 调用失败',showOriginal:'原文',showAi:'AI 整理版'
   },
   en:{
     appTitle:'One Line a Day',today:'Today',calendar:'Calendar',year:'Year',review:'Review',
@@ -54,7 +54,7 @@ const i18n={
     appearance:'Appearance',colorTheme:'Color Theme',exportBackup:'Export Full Backup',importBackup:'Import Full Backup',
     localOnly:'This version stores data in this browser.',noEntry:'No entry yet.',saved:'Saved',
     daysRecorded:'{n} days recorded',addBlock:'Add another block',newBlock:'New block',
-    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',historyAi:'Batch organize history',historyAiDesc:'Choose blocks and a time range to generate AI versions in bulk.',historyAiTitle:'History AI Organizer',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',showAiVersions:'Show AI versions',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
+    blockPlaceholder:'Remember this part of the day in one sentence.',chooseBlock:'Choose a block',customBlock:'Custom title',blockPresets:'Saved block titles',blockPresetsDesc:'Choose a saved title when adding a block.',presetPlaceholder:"e.g. Xixi's Day",add:'Add',aiSettings:'AI Settings',aiSettingsDesc:'Change providers later without rebuilding the app.',historyAi:'Batch organize history',historyAiDesc:'Choose blocks and a time range to generate AI versions in bulk.',historyAiTitle:'History AI Organizer',pdfExport:'Export Year at a Glance PDF',pdfExportDesc:'Choose a year and a specific block to export as a year-at-a-glance calendar.',pdfExportButton:'Choose and export PDF',pdfOptions:'Export Options',exportYear:'Year',exportBlock:'Block to export',pdfLayout:'Layout',twoPages:'Two pages: Jan–Jun / Jul–Dec',onePage:'One page: all 12 months',includeEmptyDays:'Keep empty dates',exportPdfNow:'Export PDF',pdfGenerating:'Generating PDF…',pdfDone:'PDF generated',pdfNoBlock:'No exportable blocks',pdfRecords:'{n} records in this block for the selected year',providerName:'Provider Name',endpoint:'API Endpoint',modelName:'Model',apiKey:'API Key',aiStyle:'Summary Style',styleFaithful:'Faithful & concise',styleNatural:'Natural diary',styleShort:'Very short',showAiVersions:'Show AI versions',testAi:'Test AI Connection',aiReady:'AI connection works',aiNotConfigured:'Enter Endpoint, Model, and API Key first',aiOrganize:'Organize with AI',useAi:'Use this sentence',regenerate:'Regenerate',aiResult:'AI Result',batchAi:'Batch AI Organize',batchBlock:'Block',allBlocks:'All blocks',batchRange:'Range',thisYear:'Current year',currentMonth:'Current month',allRecords:'All records',onlyUnprocessed:'Only records without an AI version',previewFirst10:'Preview first 10',runBatch:'Run batch',batchCount:'About {n} records',batchDone:'Completed {done}/{total}',batchFinished:'Batch complete',noEligible:'No matching records',aiError:'AI request failed',showOriginal:'Original',showAi:'AI version'
   }
 };
 
@@ -257,6 +257,154 @@ async function runHistoryBatch(){
     refreshHistoryBatchSummary();
   }finally{
     btn.disabled=false;
+  }
+}
+
+
+function availableYears(){
+  const years=new Set(Object.keys(entries).map(k=>parseKey(k).getFullYear()));
+  years.add(new Date().getFullYear());
+  return [...years].sort((a,b)=>b-a);
+}
+function allBlockTitles(){
+  const titles=new Map();
+  Object.values(entries).forEach(e=>{
+    (e.blocks||[]).forEach((b)=>{
+      const isMine=b.id==='mine'||b.title==='我的一天'||b.title==='My Day';
+      const title=isMine?t('myDay'):(b.title||t('newBlock'));
+      const key=isMine?'__mine__':title;
+      if(!titles.has(key)) titles.set(key,title);
+    });
+  });
+  if(!titles.has('__mine__')) titles.set('__mine__',t('myDay'));
+  return [...titles.entries()].map(([value,label])=>({value,label}));
+}
+function populatePdfExportOptions(){
+  const yearSel=$('#pdfYearSelect'), blockSel=$('#pdfBlockSelect');
+  if(!yearSel||!blockSel) return;
+  yearSel.innerHTML=availableYears().map(y=>`<option value="${y}" ${y===currentYear?'selected':''}>${y}</option>`).join('');
+  const blocks=allBlockTitles();
+  blockSel.innerHTML=blocks.map(b=>`<option value="${escapeAttr(b.value)}">${escapeHtml(b.label)}</option>`).join('');
+  refreshPdfExportSummary();
+}
+function pdfBlockMatches(block, selector){
+  const isMine=block.id==='mine'||block.title==='我的一天'||block.title==='My Day';
+  if(selector==='__mine__') return isMine;
+  return !isMine && block.title===selector;
+}
+function getPdfRecords(year, selector){
+  const out={};
+  Object.keys(entries).forEach(k=>{
+    const d=parseKey(k);
+    if(d.getFullYear()!==year) return;
+    const found=(entries[k].blocks||[]).find(b=>pdfBlockMatches(b,selector)&&b.text);
+    if(found) out[k]=found.text;
+  });
+  return out;
+}
+function refreshPdfExportSummary(){
+  const year=Number($('#pdfYearSelect')?.value||currentYear);
+  const selector=$('#pdfBlockSelect')?.value||'__mine__';
+  const n=Object.keys(getPdfRecords(year,selector)).length;
+  const el=$('#pdfExportSummary');
+  if(el) el.textContent=t('pdfRecords',{n});
+}
+function sanitizePdfText(text){
+  return String(text||'').replace(/\s+/g,' ').trim();
+}
+function drawYearAtGlancePage(doc, year, startMonth, endMonth, records, blockLabel, includeEmpty, pageTitle){
+  const pageW=doc.internal.pageSize.getWidth();
+  const pageH=doc.internal.pageSize.getHeight();
+  const margin=7, headerH=14;
+  const months=endMonth-startMonth+1;
+  const colW=(pageW-margin*2)/months;
+  const bodyTop=margin+headerH;
+  const bodyH=pageH-bodyTop-margin;
+  const rowH=bodyH/31;
+
+  doc.setTextColor(35,35,35);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(13);
+  doc.text(`${year} · ${blockLabel}`,margin,margin+5);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(7);
+  doc.text(pageTitle,pageW-margin,margin+5,{align:'right'});
+
+  const monthNames=['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+
+  for(let m=startMonth;m<=endMonth;m++){
+    const idx=m-startMonth;
+    const x=margin+idx*colW;
+    doc.setFillColor(245,245,247);
+    doc.rect(x,bodyTop-6,colW,6,'F');
+    doc.setDrawColor(210,210,215);
+    doc.rect(x,bodyTop-6,colW,6);
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(7.5);
+    doc.text(monthNames[m-1],x+colW/2,bodyTop-2,{align:'center'});
+
+    const daysInMonth=new Date(year,m,0).getDate();
+    for(let day=1;day<=31;day++){
+      const y=bodyTop+(day-1)*rowH;
+      const key=`${year}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const text=records[key]||'';
+      const valid=day<=daysInMonth;
+      if(!valid && !includeEmpty) continue;
+
+      doc.setDrawColor(225,225,228);
+      doc.rect(x,y,colW,rowH);
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(5.3);
+      doc.setTextColor(valid?100:185,valid?100:185,valid?105:190);
+      doc.text(String(day),x+1.2,y+rowH*0.62);
+
+      if(valid && text){
+        doc.setFont('helvetica','normal');
+        doc.setFontSize(months<=6?5.2:3.7);
+        doc.setTextColor(45,45,48);
+        const maxW=colW-6;
+        let lines=doc.splitTextToSize(sanitizePdfText(text),maxW);
+        const maxLines=months<=6?2:1;
+        if(lines.length>maxLines){
+          lines=lines.slice(0,maxLines);
+          let last=lines[maxLines-1];
+          if(last.length>4) last=last.slice(0,-2)+'…';
+          lines[maxLines-1]=last;
+        }
+        doc.text(lines,x+5,y+rowH*0.43,{lineHeightFactor:0.88});
+      }
+    }
+  }
+}
+async function exportYearAtGlancePdf(){
+  if(!window.jspdf?.jsPDF){alert('PDF library not loaded');return;}
+  const year=Number($('#pdfYearSelect')?.value||currentYear);
+  const selector=$('#pdfBlockSelect')?.value||'__mine__';
+  const blockLabel=$('#pdfBlockSelect')?.selectedOptions?.[0]?.textContent||t('myDay');
+  const layout=$('#pdfLayoutSelect')?.value||'twoPages';
+  const includeEmpty=$('#pdfIncludeEmpty')?.checked!==false;
+  const records=getPdfRecords(year,selector);
+  const status=$('#pdfExportStatus');
+  status.textContent=t('pdfGenerating');
+
+  try{
+    const {jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a3',compress:true});
+
+    if(layout==='onePage'){
+      drawYearAtGlancePage(doc,year,1,12,records,blockLabel,includeEmpty,`${year} YEAR AT A GLANCE`);
+    }else{
+      drawYearAtGlancePage(doc,year,1,6,records,blockLabel,includeEmpty,`${year} · JAN–JUN`);
+      doc.addPage('a3','landscape');
+      drawYearAtGlancePage(doc,year,7,12,records,blockLabel,includeEmpty,`${year} · JUL–DEC`);
+    }
+
+    const safeBlock=blockLabel.replace(/[\\/:*?"<>|]+/g,'-');
+    doc.save(`${year}-${safeBlock}-Year-at-a-Glance.pdf`);
+    status.textContent='✓ '+t('pdfDone');
+  }catch(err){
+    console.error(err);
+    status.textContent=`PDF error: ${err.message}`;
   }
 }
 
@@ -478,6 +626,18 @@ if($('#closeHistoryAi')) $('#closeHistoryAi').onclick=()=>$('#historyAiDialog').
 if($('#historyPreviewBtn')) $('#historyPreviewBtn').onclick=previewHistoryBatch;
 if($('#historyRunBtn')) $('#historyRunBtn').onclick=runHistoryBatch;
 
+
+if($('#openPdfExportBtn')) $('#openPdfExportBtn').onclick=()=>{
+  populatePdfExportOptions();
+  $('#pdfExportStatus').textContent='';
+  $('#pdfExportDialog').showModal();
+};
+if($('#closePdfExport')) $('#closePdfExport').onclick=()=>$('#pdfExportDialog').close();
+['#pdfYearSelect','#pdfBlockSelect','#pdfLayoutSelect','#pdfIncludeEmpty'].forEach(sel=>{
+  const el=$(sel); if(el) el.addEventListener('change',refreshPdfExportSummary);
+});
+if($('#runPdfExportBtn')) $('#runPdfExportBtn').onclick=exportYearAtGlancePdf;
+
 $('#settingsBtn').onclick=()=>{renderPresetSettings();$('#settingsDialog').showModal();};
 $('#closeSettings').onclick=()=>$('#settingsDialog').close();
 $('#languageSelect').onchange=e=>{settings.language=e.target.value;localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));applySettings()};
@@ -489,7 +649,7 @@ $('#paletteSelect').onchange=e=>{settings.palette=e.target.value;localStorage.se
 
 $('#exportBtn').onclick=()=>{
   const safeAiSettings={...aiSettings,apiKey:''};
-  const payload={app:'One Line a Day',version:15,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
+  const payload={app:'One Line a Day',version:16,exportedAt:new Date().toISOString(),settings,blockPresets,aiSettings:safeAiSettings,entries};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`one-line-day-backup-${dateKey(new Date())}.json`;a.click();URL.revokeObjectURL(a.href);

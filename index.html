@@ -72,6 +72,17 @@
         </div>
         
 
+        <div class="card pdf-export-card">
+          <div class="section-title-row">
+            <div>
+              <span class="dot" style="background:var(--mint)"></span>
+              <h2 data-i18n="pdfExport">导出 Year at a Glance PDF</h2>
+            </div>
+          </div>
+          <p class="muted tiny" data-i18n="pdfExportDesc">选择年份和指定 Block，导出成年度日历图。</p>
+          <button class="secondary-btn" id="openPdfExportBtn" data-i18n="pdfExportButton">选择并导出 PDF</button>
+        </div>
+
         <div id="yearMonths" class="year-months"></div>
       </section>
 
@@ -269,6 +280,46 @@
     </div>
   </dialog>
 
+  <dialog id="pdfExportDialog">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow" data-i18n="pdfExport">导出 Year at a Glance PDF</div>
+          <h2 data-i18n="pdfOptions">导出设置</h2>
+        </div>
+        <button class="icon-btn" id="closePdfExport">×</button>
+      </div>
+
+      <label class="setting-stack">
+        <span data-i18n="exportYear">年份</span>
+        <select id="pdfYearSelect"></select>
+      </label>
+
+      <label class="setting-stack">
+        <span data-i18n="exportBlock">导出的 Block</span>
+        <select id="pdfBlockSelect"></select>
+      </label>
+
+      <label class="setting-stack">
+        <span data-i18n="pdfLayout">版式</span>
+        <select id="pdfLayoutSelect">
+          <option value="twoPages" data-i18n="twoPages">两页：1–6 月 / 7–12 月</option>
+          <option value="onePage" data-i18n="onePage">一页：全年 12 个月</option>
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span data-i18n="includeEmptyDays">保留没有记录的日期</span>
+        <input id="pdfIncludeEmpty" type="checkbox" checked>
+      </label>
+
+      <div id="pdfExportSummary" class="muted tiny"></div>
+      <button class="primary-btn" id="runPdfExportBtn" data-i18n="exportPdfNow">导出 PDF</button>
+      <div id="pdfExportStatus" class="save-hint"></div>
+    </div>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
